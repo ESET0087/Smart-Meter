@@ -53,23 +53,23 @@ public partial class Consumer
     [Column("isdeleted")]
     public bool? Isdeleted { get; set; }
 
-    //[InverseProperty("Consumer")]
-    //public virtual ICollection<Arrear> Arrears { get; set; } = new List<Arrear>();
+    [InverseProperty("Consumer")]
+    public virtual ICollection<Arrear> Arrears { get; set; } = new List<Arrear>();
 
-    //[InverseProperty("Consumer")]
-    //public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
+    [InverseProperty("Consumer")]
+    public virtual ICollection<Bill> Bills { get; set; } = new List<Bill>();
 
-    //[InverseProperty("Consumer")]
-    //public virtual Consumeraddress? Consumeraddress { get; set; }
+    [InverseProperty("Consumer")]
+    public virtual Consumeraddress? Consumeraddress { get; set; }
 
-    //[InverseProperty("Consumer")]
-    //public virtual ICollection<Meter> Meters { get; set; } = new List<Meter>();
+    [InverseProperty("Consumer")]
+    public virtual ICollection<Meter> Meters { get; set; } = new List<Meter>();
 
-    //[ForeignKey("Orgunitid")]
-    //[InverseProperty("Consumers")]
-    //public virtual Orgunit Orgunit { get; set; } = null!;
+    [ForeignKey("Orgunitid")]
+    [InverseProperty("Consumers")]
+    public virtual Orgunit Orgunit { get; set; } = null!;
 
-    //[ForeignKey("Tariffid")]
-    //[InverseProperty("Consumers")]
-    //public virtual Tariff Tariff { get; set; } = null!;
+    [ForeignKey("Tariffid")]
+    [InverseProperty("Consumers")]
+    public virtual Tariff Tariff { get; set; } = null!;
 }
