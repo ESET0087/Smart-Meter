@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace smart_meter.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class MigrationName : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -75,6 +75,7 @@ namespace smart_meter.Migrations
                     consumerid = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    photo = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     address = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
                     email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),

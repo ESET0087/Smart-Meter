@@ -12,8 +12,8 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251028094413_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251028113632_MigrationName")]
+    partial class MigrationName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -204,6 +204,11 @@ namespace smart_meter.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)")
                         .HasColumnName("phone");
+
+                    b.Property<string>("Photo")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("photo");
 
                     b.Property<string>("Status")
                         .IsRequired()

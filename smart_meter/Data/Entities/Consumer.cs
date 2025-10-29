@@ -14,6 +14,11 @@ public partial class Consumer
     [StringLength(200)]
     public string Name { get; set; } = null!;
 
+    [Column("photo")]
+    [StringLength(300)]
+    public string? Photo { get; set; }
+
+
     [Column("address")]
     [StringLength(500)]
     public string? Address { get; set; }
@@ -72,4 +77,6 @@ public partial class Consumer
     [ForeignKey("Tariffid")]
     [InverseProperty("Consumers")]
     public virtual Tariff Tariff { get; set; } = null!;
+
+
 }
