@@ -20,6 +20,8 @@ namespace smart_meter
             // Add custom jwt and add db context
             builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<UpdateUserServices>();
+            builder.Services.AddScoped<EnergyMeasurementServices>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
