@@ -19,7 +19,12 @@ namespace smart_meter
 
             // Add custom jwt and add db context
             builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(config.GetConnectionString("DefaultConnection")));
+            
+            // This enables proper mapping for DateOnly and TimeOnly types
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<TariffService>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -52,7 +57,6 @@ namespace smart_meter
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
