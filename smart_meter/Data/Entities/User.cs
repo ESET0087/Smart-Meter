@@ -36,4 +36,6 @@ public partial class User
 
     [Column("isactive")]
     public bool Isactive { get; set; } = true;
+
+    
 }
