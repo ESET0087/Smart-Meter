@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using smart_meter.Data.Context;
 using smart_meter.Model.DTOs;
 using smart_meter.Services;
@@ -18,13 +19,19 @@ namespace smart_meter.Controllers
             _billService = billService;
         }
         [HttpGet("GenerateBill")]
-        public async Task<IActionResult> GenerateBill(int consumerId, [FromQuery] decimal unitsConsumed)
+        public async Task<IActionResult> GenerateBill(int consumerId)
         {
-            var bill = await _billService.GenerateBillAsync(consumerId, unitsConsumed);
+            var meterno = await _context.Meters
+                .Where(m => m.Consumerid == consumerId)
+                .Select(m => m.Meterserialno)
+                .FirstOrDefaultAsync();
+
+            //Console.WriteLine("Meter Numbers:" + meterno.ToString()+"\n\n\n\n");
+            var bill = await _billService.GenerateBillAsync(meterno.ToString());
 
             var dto = new BillDto
             {
-                Billid = (int)bill.Billid,
+                
                 Consumerid = bill.Consumerid,
                 Meterserialno = bill.Meterserialno,
                 Billingperiodstart = bill.Billingperiodstart,
