@@ -18,6 +18,8 @@ namespace smart_meter.Controllers
             _context = context;
             _billService = billService;
         }
+
+        // Generate Bill
         [HttpGet("GenerateBill")]
         public async Task<IActionResult> GenerateBill(int consumerId)
         {
@@ -29,9 +31,8 @@ namespace smart_meter.Controllers
             //Console.WriteLine("Meter Numbers:" + meterno.ToString()+"\n\n\n\n");
             var bill = await _billService.GenerateBillAsync(meterno.ToString());
 
-            var dto = new BillDto
-            {
-                
+            var dto = new 
+            {                
                 Consumerid = bill.Consumerid,
                 Meterserialno = bill.Meterserialno,
                 Billingperiodstart = bill.Billingperiodstart,
@@ -47,5 +48,5 @@ namespace smart_meter.Controllers
             return Ok(dto);
 
         }
-        }
+       }
 }

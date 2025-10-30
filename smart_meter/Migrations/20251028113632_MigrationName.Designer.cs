@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_meter.Data.Context;
@@ -11,9 +12,11 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251028113632_MigrationName")]
+    partial class MigrationName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -610,27 +613,15 @@ namespace smart_meter.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("email");
 
-                    b.Property<int>("FailedLoginCount")
-                        .HasColumnType("integer")
-                        .HasColumnName("failedlogincount");
-
                     b.Property<bool>("Isactive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(true)
                         .HasColumnName("isactive");
 
-                    b.Property<DateTime?>("LastFailedLoginUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lastfailedloginutc");
-
                     b.Property<DateTime?>("Lastloginutc")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("lastloginutc");
-
-                    b.Property<DateTime?>("LockoutEndUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lockoutendutc");
 
                     b.Property<byte[]>("Passwordhash")
                         .IsRequired()

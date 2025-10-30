@@ -8,22 +8,22 @@ namespace smart_meter.Controllers
     [ApiController]
     [Route("api/[controller]")]
     //[Authorize(Roles = "User")]
-    public class TodRuleController : ControllerBase
+    public class TariffSlabController : ControllerBase
     {
         private readonly TariffService _tariffservice;
-        public TodRuleController(TariffService tariffservice)
+        public TariffSlabController(TariffService tariffservice)
         {
             _tariffservice = tariffservice;
         }
 
-        [HttpPut("{todRuleId}")]
-        public async Task<IActionResult> UpdateTodRule(int todRuleId, [FromBody] TodRuleUpdateRequest request)
+        [HttpPut("{TariffSlabId}")]
+        public async Task<IActionResult> UpdateTariff(int TariffSlabId, [FromBody] TariffSlabUpdateRequest request)
         {
-            var (success, errorMessage) = await _tariffservice.UpdateTodRuleAsync(todRuleId, request);
+            var (success, errorMessage) = await _tariffservice.UpdateTariffSlabAsync(TariffSlabId, request);
 
             if (!success)
             {
-                if (errorMessage == "TOD Rule not found.")
+                if (errorMessage == "Tariff not found.")
                 {
                     return NotFound(new { message = errorMessage });
                 }

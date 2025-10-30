@@ -61,7 +61,7 @@ namespace smart_meter.Services
 
                 // 3️⃣ Initialize totals
                 decimal totalEnergy = 0;
-                decimal totalPrice = 0;
+                decimal totalPrice = 0; 
 
                 // 4️⃣ Calculate energy for each 30-min interval
                 for (int i = 1; i < meterReadings.Count; i++)
