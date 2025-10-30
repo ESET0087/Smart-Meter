@@ -1,18 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using smart_meter.Data.Context;
 using smart_meter.Model.DTOs;
 using smart_meter.Services;
 
 namespace smart_meter.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class MeterReadingController : ControllerBase
     {
-        private readonly MeterReadingService _meterReadingService;
+        public readonly EnergyMeasurementServices _meterServices;
 
-        public MeterReadingController(MeterReadingService meterReadingService)
+        public MeterReadingController(AppDbContext context, EnergyMeasurementServices energyMeasurementServices)
         {
-            _meterReadingService = meterReadingService;
+            _meterServices = energyMeasurementServices;
         }
 
         // POST api/meterreading/add
@@ -23,7 +25,7 @@ namespace smart_meter.Controllers
                 return BadRequest(ModelState); // Return validation errors if any
 
             // Call service to add meter reading
-            var reading = await _meterReadingService.AddMeterReadingAsync(dto);
+            var reading = await _meterServices.AddMeterReadingAsync(dto);
 
             // Return success response
             return Ok(new
@@ -32,6 +34,14 @@ namespace smart_meter.Controllers
                 reading
             });
         }
+
+        // method to find energy consumption of a meter
+        [HttpPost("energyConsumption")]
+        public async Task<IActionResult> energyConsumption([FromBody] EnergyConsumtionMeasurment energyCon)
+        {
+            var energy = await _meterServices.EnergyConsumtion(energyCon);
+
+            return Ok(energy.message);
+        }
     }
 }
-
