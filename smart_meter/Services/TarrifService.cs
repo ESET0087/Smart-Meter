@@ -15,6 +15,7 @@ namespace smart_meter.Services
             _context = context;
         }
 
+        // method for user to update Tarrif
         public async Task<(bool Success, string? ErrorMessage)> UpdateTariffAsync(int id, TariffUpdateRequest request)
         {
             var tariff = await _context.Tariffs.FindAsync(id);
@@ -58,6 +59,7 @@ namespace smart_meter.Services
             return (true, null); // Success
         }
 
+        // method for user to update Tod Rule
         public async Task<(bool Success, string? ErrorMessage)> UpdateTodRuleAsync(int id, TodRuleUpdateRequest request)
         {
             var todRule = await _context.Todrules.FindAsync(id);
@@ -93,6 +95,7 @@ namespace smart_meter.Services
             return (true, null); // Success
         }
 
+        // method for user to update Tarrif Slab
         public async Task<(bool Success, string? ErrorMessage)> UpdateTariffSlabAsync(int id, TariffSlabUpdateRequest request)
         {
             var slab = await _context.Tariffslabs.FindAsync(id);

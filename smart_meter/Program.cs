@@ -24,6 +24,8 @@ namespace smart_meter
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<UpdateUserServices>();
+            builder.Services.AddScoped<EnergyMeasurementServices>();
             builder.Services.AddScoped<TariffService>();
 
             builder.Services.AddEndpointsApiExplorer();
