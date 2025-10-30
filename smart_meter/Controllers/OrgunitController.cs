@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using smart_meter.Model.DTOs;
 using smart_meter.Services;
-using System.Threading.Tasks;
 
 namespace smart_meter.Controllers
 {

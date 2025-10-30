@@ -28,17 +28,23 @@ namespace smart_meter.Controllers
             return Ok(new { message = "User registered successfully" });
         }
 
+        
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest login)
         {
-            var token = await _jwtService.LoginAsync(login);
-
-            if (token == null)
+            try
             {
-                return Unauthorized("Invalid username or password.");
-            }
+                var token = await _jwtService.LoginAsync(login);
 
-            return Ok(new { token = token });
+                if (token == null)
+                    return Unauthorized("Invalid username or password.");
+
+                return Ok(new { Token = token });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

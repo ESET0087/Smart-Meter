@@ -1,7 +1,6 @@
 ﻿using smart_meter.Data.Context;
 using smart_meter.Data.Entities;
 using smart_meter.Model.DTOs;
-using System.Threading.Tasks;
 
 namespace smart_meter.Services
 {
