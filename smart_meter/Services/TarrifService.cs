@@ -163,5 +163,43 @@ namespace smart_meter.Services
                 return (false, $"An error occurred while saving: {ex.Message}");
             }
         }
+
+        // Gets a list of all tariffs with calculated total rates.
+        public async Task<IEnumerable<object>> GetAllTariffsAsync()
+        {
+            return await _context.Tariffs
+                .Select(t => new
+                {
+                    t.Tariffid,
+                    t.Name,
+                    t.Effectivefrom,
+                    t.Effectiveto,
+                    t.Baserate,
+                    t.Taxrate,
+                    TotalRate = t.Baserate + t.Taxrate
+                })
+                .ToListAsync();
+        }
+
+        // Gets a specific consumer's assigned tariff details.
+        public async Task<object> GetTariffByConsumerIdAsync(int consumerId)
+        {
+            var tariffDto = await _context.Consumers
+                .Where(c => c.Consumerid == consumerId)
+                .Select(c => c.Tariff) 
+                .Select(t => new 
+                {
+                    t.Tariffid,
+                    t.Name,
+                    t.Effectivefrom,
+                    t.Effectiveto,
+                    t.Baserate,
+                    t.Taxrate,
+                    TotalRate = t.Baserate + t.Taxrate
+                })
+                .FirstOrDefaultAsync();
+
+            return tariffDto; // This will be null if the consumer or tariff is not found
+        }
     }
 }

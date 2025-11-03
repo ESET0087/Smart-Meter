@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using smart_meter.Model.DTOs;
 using smart_meter.Services;
@@ -7,6 +8,7 @@ namespace smart_meter.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class OrgunitController : ControllerBase
     {
         private readonly OrgunitService _orgunitService;

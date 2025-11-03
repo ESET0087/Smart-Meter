@@ -33,7 +33,7 @@ namespace smart_meter
             builder.Services.AddScoped<OrgunitService>();
             builder.Services.AddScoped<MeterService>();
             builder.Services.AddScoped<HistoricalConsumptionService>();
-            builder.Services.AddScoped<UpdateUserServices>();
+            builder.Services.AddScoped<UserServices>();
             builder.Services.AddScoped<EnergyMeasurementServices>();
             builder.Services.AddScoped<TariffService>();
             builder.Services.AddScoped<BillService>();

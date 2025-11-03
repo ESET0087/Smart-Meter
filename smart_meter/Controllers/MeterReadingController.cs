@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using smart_meter.Data.Context;
@@ -8,6 +9,7 @@ namespace smart_meter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MeterReadingController : ControllerBase
     {
         public readonly EnergyMeasurementServices _meterServices;

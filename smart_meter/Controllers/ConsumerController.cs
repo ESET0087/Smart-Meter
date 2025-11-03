@@ -1,12 +1,15 @@
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using smart_meter.Model.DTOs;
 using smart_meter.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace smart_meter.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ConsumerController : ControllerBase
     {
         private readonly ConsumerService _consumerService;
@@ -18,27 +21,9 @@ namespace smart_meter.Controllers
             _billservice = billService;
         }
 
-        // Add Consumer
-        [HttpPost("add")]
-        public async Task<IActionResult> AddConsumer([FromBody] ConsumerCreateDto dto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var consumer = await _consumerService.AddConsumerAsync(dto);
-
-            if (consumer == null)
-                return BadRequest("Failed to add consumer.");
-
-            return Ok(new
-            {
-                message = "Consumer added successfully",
-                consumerId = consumer.Consumerid
-            });
-        }
-
         // Upload Consumer Photo
         [HttpPost("upload-photo")]
+        [Authorize(Roles = "Consumer")]
         public async Task<IActionResult> UploadPhoto([FromForm] ConsumerPhotoUploadDto dto)
         {
             var photoUrl = await _consumerService.UploadPhotoAsync(dto);
@@ -55,6 +40,7 @@ namespace smart_meter.Controllers
 
         // previous bills
         [HttpGet("PreviousBills/{consumerId}")]
+        [Authorize(Roles = "User, Consumer")]
         public async Task<ActionResult<IEnumerable<object>>> GetPreviousBills(int consumerId)
         {
             var bills = await _billservice.GetPreviousBillsAsync(consumerId);

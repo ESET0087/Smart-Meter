@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using smart_meter.Data.Context;
 using smart_meter.Data.Entities;
 using smart_meter.Model.DTOs;
+using System.Text;
 
 namespace smart_meter.Services
 {
@@ -15,29 +16,6 @@ namespace smart_meter.Services
         {
             _context = context;
             _environment = environment;
-        }
-
-        // Add Consumer
-        public async Task<Consumer> AddConsumerAsync(ConsumerCreateDto dto)
-        {
-            var consumer = new Consumer
-            {
-                Name = dto.Name,
-                Address = dto.Address,
-                Phone = dto.Phone,
-                Email = dto.Email,
-                Orgunitid = dto.Orgunitid,
-                Tariffid = dto.Tariffid,
-                Status = "Active",
-                Createdat = DateTime.UtcNow,
-                Createdby = "System", // Or from logged-in user
-                Isdeleted = false
-            };
-
-            _context.Consumers.Add(consumer);
-            await _context.SaveChangesAsync();
-
-            return consumer;
         }
 
         // Upload Consumer Photo
