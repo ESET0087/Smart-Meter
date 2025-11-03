@@ -127,7 +127,7 @@ namespace smart_meter.Services
                     Duedate = DateOnly.FromDateTime(DateTime.UtcNow.AddDays(15)),
                     Ispaid = false,
                     Discdate = DateTime.UtcNow.AddMonths(3),
-                    Consumerid =(long)tariffid.consumerid
+                    Consumerid =(long)tariffid.consumerid 
 
                 };
 

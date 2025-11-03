@@ -31,7 +31,7 @@ namespace smart_meter.Controllers
             //Console.WriteLine("Meter Numbers:" + meterno.ToString()+"\n\n\n\n");
             var bill = await _billService.GenerateBillAsync(meterno.ToString());
 
-            var dto = new 
+            var dto = new
             {                
                 Consumerid = bill.Consumerid,
                 Meterserialno = bill.Meterserialno,

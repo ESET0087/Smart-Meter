@@ -23,7 +23,7 @@ namespace smart_meter.Services
             var consumer = new Consumer
             {
                 Name = dto.Name,
-                Address = dto.Address,
+               // Address = dto.Address,
                 Phone = dto.Phone,
                 Email = dto.Email,
                 Orgunitid = dto.Orgunitid,

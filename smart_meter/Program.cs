@@ -37,6 +37,7 @@ namespace smart_meter
             builder.Services.AddScoped<EnergyMeasurementServices>();
             builder.Services.AddScoped<TariffService>();
             builder.Services.AddScoped<BillService>();
+            builder.Services.AddScoped<ConnectionRequestService>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

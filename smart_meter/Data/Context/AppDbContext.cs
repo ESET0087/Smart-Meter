@@ -33,6 +33,9 @@ namespace smart_meter.Data.Context
 
         public virtual DbSet<User> User { get; set; }
 
+        public  virtual DbSet<ConnectionRequest> ConnectionRequests { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Arrear>(entity =>
@@ -84,6 +87,9 @@ namespace smart_meter.Data.Context
                 entity.HasOne(d => d.Tariff).WithMany(p => p.Consumers)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("consumer_tariffid_fkey");
+
+                
+
             });
 
             modelBuilder.Entity<Consumeraddress>(entity =>

@@ -19,9 +19,9 @@ public partial class Consumer
     public string? Photo { get; set; }
 
 
-    [Column("address")]
-    [StringLength(500)]
-    public string? Address { get; set; }
+    //[Column("address")]
+    //[StringLength(500)]
+    //public string? Address { get; set; }
 
     [Column("phone")]
     [StringLength(30)]
@@ -29,7 +29,7 @@ public partial class Consumer
 
     [Column("email")]
     [StringLength(200)]
-    public string? Email { get; set; }
+    public string Email { get; set; }
 
     [Column("orgunitid")]
     public int Orgunitid { get; set; }
