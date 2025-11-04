@@ -12,8 +12,8 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251031111718_initial")]
-    partial class initial
+    [Migration("20251031093351_defPass")]
+    partial class defPass
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -175,6 +175,7 @@ namespace smart_meter.Migrations
                         .HasDefaultValueSql("'system'::character varying");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)")
                         .HasColumnName("email");
@@ -194,6 +195,11 @@ namespace smart_meter.Migrations
                     b.Property<int>("Orgunitid")
                         .HasColumnType("integer")
                         .HasColumnName("orgunitid");
+
+                    b.Property<byte[]>("Password")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("passwordhash");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(30)
@@ -232,6 +238,9 @@ namespace smart_meter.Migrations
                     b.HasIndex("Orgunitid");
 
                     b.HasIndex("Tariffid");
+
+                    b.HasIndex(new[] { "Email" }, "consumer_email_key")
+                        .IsUnique();
 
                     b.ToTable("consumer");
                 });

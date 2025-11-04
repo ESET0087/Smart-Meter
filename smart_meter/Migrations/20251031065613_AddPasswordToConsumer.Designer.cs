@@ -12,8 +12,8 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251031113226_removenullemail")]
-    partial class removenullemail
+    [Migration("20251031065613_AddPasswordToConsumer")]
+    partial class AddPasswordToConsumer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,6 +196,11 @@ namespace smart_meter.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("orgunitid");
 
+                    b.Property<byte[]>("Password")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("passwordhash");
+
                     b.Property<string>("Phone")
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)")
@@ -233,6 +238,9 @@ namespace smart_meter.Migrations
                     b.HasIndex("Orgunitid");
 
                     b.HasIndex("Tariffid");
+
+                    b.HasIndex(new[] { "Email" }, "consumer_email_key")
+                        .IsUnique();
 
                     b.ToTable("consumer");
                 });

@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+using System.Xml.Linq;
 
 namespace smart_meter.Data.Entities;
 
 [Table("consumer")]
+[Index(nameof(Email), IsUnique = true, Name = "consumer_email_key")]
 public partial class Consumer
 {
     [Key]
@@ -30,6 +34,9 @@ public partial class Consumer
     [Column("email")]
     [StringLength(200)]
     public string Email { get; set; }
+
+    [Column("passwordhash")]
+    public byte[]? Password { get; set; }
 
     [Column("orgunitid")]
     public int Orgunitid { get; set; }

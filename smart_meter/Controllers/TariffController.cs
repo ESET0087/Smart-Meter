@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using smart_meter.Model.DTOs;
 using smart_meter.Services;
 
@@ -7,7 +8,7 @@ namespace smart_meter.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize(Roles = "User")]
+    [Authorize]
     public class TariffController : ControllerBase
     {
         private readonly TariffService _tariffservice;
@@ -27,6 +28,7 @@ namespace smart_meter.Controllers
             return Ok(new { message = "Tariff added successfully", tariff });
         }
 
+        //Update tariff by id
         [HttpPut("{TariffId}")]
         public async Task<IActionResult> UpdateTariff(int TariffId, [FromBody] TariffUpdateRequest request)
         {
@@ -42,6 +44,28 @@ namespace smart_meter.Controllers
             }
 
             return NoContent();
+        }
+
+        // get all tarrif
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<object>>> GetTariffRates()
+        {
+            var tariffs = await _tariffservice.GetAllTariffsAsync();
+            return Ok(tariffs);
+        }
+
+        // get tariff of a consumer
+        [HttpGet("GetTariffByConsumer/{id}")]
+        public async Task<ActionResult<object>> GetTariffById(int id)
+        {
+            var tariff = await _tariffservice.GetTariffByConsumerIdAsync(id);
+
+            if (tariff == null)
+            {
+                return NotFound(new { Message = "Consumer not found or tariff not assigned." });
+            }
+
+            return Ok(tariff);
         }
     }
 }

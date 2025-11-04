@@ -60,7 +60,7 @@ namespace smart_meter.Migrations
                     b.HasIndex(new[] { "Billid" }, "arrears_billid_key")
                         .IsUnique();
 
-                    b.ToTable("arrears");
+                    b.ToTable("arrears", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Bill", b =>
@@ -145,7 +145,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex("Meterserialno");
 
-                    b.ToTable("bill");
+                    b.ToTable("bill", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.ConnectionRequest", b =>
@@ -210,7 +210,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex("ConsumerId");
 
-                    b.ToTable("connection_request");
+                    b.ToTable("connection_request", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Consumer", b =>
@@ -296,7 +296,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex("Tariffid");
 
-                    b.ToTable("consumer");
+                    b.ToTable("consumer", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Consumeraddress", b =>
@@ -342,7 +342,7 @@ namespace smart_meter.Migrations
                     b.HasIndex(new[] { "Consumerid" }, "consumeraddress_consumerid_key")
                         .IsUnique();
 
-                    b.ToTable("consumeraddress");
+                    b.ToTable("consumeraddress", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Meter", b =>
@@ -408,7 +408,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex("Consumerid");
 
-                    b.ToTable("meter");
+                    b.ToTable("meter", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Meterreading", b =>
@@ -450,7 +450,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex("Meterserialno");
 
-                    b.ToTable("meterreadings");
+                    b.ToTable("meterreadings", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Orgunit", b =>
@@ -485,7 +485,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex(new[] { "Type" }, "idx_orgunit_type");
 
-                    b.ToTable("orgunit");
+                    b.ToTable("orgunit", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Tariff", b =>
@@ -526,7 +526,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex(new[] { "Effectivefrom" }, "idx_tariff_effectivefrom");
 
-                    b.ToTable("tariff");
+                    b.ToTable("tariff", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Tariffslab", b =>
@@ -568,7 +568,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex("Tariffid");
 
-                    b.ToTable("tariffslab");
+                    b.ToTable("tariffslab", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Tarrifdetail", b =>
@@ -598,7 +598,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex("Todruleid");
 
-                    b.ToTable("tarrifdetails");
+                    b.ToTable("tarrifdetails", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Todrule", b =>
@@ -648,7 +648,7 @@ namespace smart_meter.Migrations
 
                     b.HasIndex(new[] { "Name" }, "idx_tod_name");
 
-                    b.ToTable("todrule");
+                    b.ToTable("todrule", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.User", b =>
@@ -715,7 +715,7 @@ namespace smart_meter.Migrations
                     b.HasIndex(new[] { "Username" }, "User_username_key")
                         .IsUnique();
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("smart_meter.Data.Entities.Arrear", b =>

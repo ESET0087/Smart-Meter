@@ -80,7 +80,7 @@ namespace smart_meter.Migrations
                     name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     photo = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
-                    email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     orgunitid = table.Column<int>(type: "integer", nullable: false),
                     tariffid = table.Column<int>(type: "integer", nullable: false),
                     status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValueSql: "'Active'::character varying"),
@@ -329,6 +329,12 @@ namespace smart_meter.Migrations
                 name: "IX_bill_meterserialno",
                 table: "bill",
                 column: "meterserialno");
+
+            migrationBuilder.CreateIndex(
+                name: "consumer_email_key",
+                table: "consumer",
+                column: "email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_consumer_orgunitid",

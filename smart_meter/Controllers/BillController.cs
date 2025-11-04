@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using smart_meter.Data.Context;
 using smart_meter.Model.DTOs;
@@ -8,6 +9,7 @@ namespace smart_meter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BillController : Controller
     {
 

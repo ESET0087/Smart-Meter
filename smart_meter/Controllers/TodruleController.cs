@@ -7,7 +7,7 @@ namespace smart_meter.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize(Roles = "User")]
+    [Authorize]
     public class TodRuleController : ControllerBase
     {
         private readonly TariffService _tariffservice;

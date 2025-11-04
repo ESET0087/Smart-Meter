@@ -1,7 +1,4 @@
-﻿
-
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using smart_meter.Data.Entities;
 using System.IdentityModel.Tokens.Jwt;
@@ -29,8 +26,7 @@ namespace smart_meter.Services
             _config = config;
         }
 
-        //  REGISTER
-        
+        //  REGISTER user
         public async Task<RegistrationResult> RegisterAsync(RegisterRequest request)
         {
             if (await _context.User.AnyAsync(u => u.Username == request.Username))
@@ -44,7 +40,9 @@ namespace smart_meter.Services
             {
                 Username = request.Username,
                 Passwordhash = Encoding.UTF8.GetBytes(passwordHash),
-                Displayname = request.DisplayName
+                Displayname = request.DisplayName,
+                Email = request.Email,
+                Phone = request.Phone,
             };
 
             _context.User.Add(newUser);
@@ -55,7 +53,6 @@ namespace smart_meter.Services
 
         
         //  LOGIN with Lockout Tracking
-      
         public async Task<string?> LoginAsync(LoginRequest login)
         {
             var user = await _context.User.FirstOrDefaultAsync(u => u.Username == login.Username);
@@ -101,8 +98,7 @@ namespace smart_meter.Services
         }
 
       
-        //  TOKEN GENERATION
-        
+        //  TOKEN GENERATION for user
         private string GenerateToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
@@ -113,7 +109,8 @@ namespace smart_meter.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.Username),
                 new Claim(JwtRegisteredClaimNames.NameId, user.Userid.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role, "User"),
             };
 
             var token = new JwtSecurityToken(
@@ -121,6 +118,49 @@ namespace smart_meter.Services
                 audience: _config["Jwt:Audience"],
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(120),
+                signingCredentials: credentials);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<string> AuthenticateConsumerAsync(LoginRequest login)
+        {
+            var consumer = await _context.Consumers.FirstOrDefaultAsync(c => c.Email == login.Username);
+
+            if (consumer == null || consumer.Status != "Active")
+            {
+                return null;
+            }
+
+            string storedHash = Encoding.UTF8.GetString(consumer.Password);
+
+            if (!BCrypt.Net.BCrypt.Verify(login.Password, storedHash))
+            {
+                return null; // Invalid password
+            }
+
+            return GenerateToken(consumer);
+        }
+
+        // token generation for consumer
+        private string GenerateToken(Consumer consumer)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, consumer.Email),
+                new Claim(JwtRegisteredClaimNames.NameId, consumer.Consumerid.ToString()),
+        
+                new Claim(ClaimTypes.Role, "Consumer"), 
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(120), 
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

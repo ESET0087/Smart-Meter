@@ -15,6 +15,7 @@ namespace smart_meter.Controllers
             _jwtService = jwtService;
         }
 
+        // user register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -28,7 +29,7 @@ namespace smart_meter.Controllers
             return Ok(new { message = "User registered successfully" });
         }
 
-        
+        // user login        
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest login)
         {
@@ -45,6 +46,20 @@ namespace smart_meter.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        // comsumer login
+        [HttpPost("consumer/login")]
+        public async Task<IActionResult> ConsumerLogin([FromBody] LoginRequest login)
+        {
+            var token = await _jwtService.AuthenticateConsumerAsync(login);
+
+            if (token == null)
+            {
+                return Unauthorized("Invalid email or password.");
+            }
+
+            return Ok(new { token = token });
         }
     }
 }
