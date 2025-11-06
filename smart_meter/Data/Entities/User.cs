@@ -38,7 +38,7 @@ public partial class User
     public bool Isactive { get; set; } = true;
 
     [Column("failedlogincount")]
-    public int FailedLoginCount { get; set; } = 0;
+    public int? FailedLoginCount { get; set; } = 0;
 
     [Column("lastfailedloginutc")]
     public DateTime? LastFailedLoginUtc { get; set; }

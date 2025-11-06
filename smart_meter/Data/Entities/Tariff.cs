@@ -10,6 +10,8 @@ namespace smart_meter.Data.Entities;
 [Index("Effectivefrom", Name = "idx_tariff_effectivefrom")]
 public partial class Tariff
 {
+
+    
     [Key]
     [Column("tariffid")]
     public int Tariffid { get; set; }

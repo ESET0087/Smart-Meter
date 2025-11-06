@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace smart_meter.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class data : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,7 +62,7 @@ namespace smart_meter.Migrations
                     phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
                     lastloginutc = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     isactive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
-                    failedlogincount = table.Column<int>(type: "integer", nullable: false),
+                    failedlogincount = table.Column<int>(type: "integer", nullable: true),
                     lastfailedloginutc = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     lockoutendutc = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -81,6 +81,7 @@ namespace smart_meter.Migrations
                     photo = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
                     phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
                     email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    passwordhash = table.Column<byte[]>(type: "bytea", nullable: true),
                     orgunitid = table.Column<int>(type: "integer", nullable: false),
                     tariffid = table.Column<int>(type: "integer", nullable: false),
                     status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValueSql: "'Active'::character varying"),

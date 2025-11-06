@@ -12,8 +12,8 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251031093351_defPass")]
-    partial class defPass
+    [Migration("20251104111012_hello")]
+    partial class hello
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,7 +197,6 @@ namespace smart_meter.Migrations
                         .HasColumnName("orgunitid");
 
                     b.Property<byte[]>("Password")
-                        .IsRequired()
                         .HasColumnType("bytea")
                         .HasColumnName("passwordhash");
 
@@ -617,7 +616,7 @@ namespace smart_meter.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("email");
 
-                    b.Property<int>("FailedLoginCount")
+                    b.Property<int?>("FailedLoginCount")
                         .HasColumnType("integer")
                         .HasColumnName("failedlogincount");
 

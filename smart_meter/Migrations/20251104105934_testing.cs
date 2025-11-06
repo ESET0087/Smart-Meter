@@ -5,25 +5,25 @@
 namespace smart_meter.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPasswordToConsumer : Migration
+    public partial class testing : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<byte[]>(
-                name: "passwordhash",
-                table: "consumer",
-                type: "bytea",
+            migrationBuilder.AddColumn<string>(
+                name: "testing",
+                table: "tariff",
+                type: "text",
                 nullable: false,
-                defaultValue: new byte[0]);
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "passwordhash",
-                table: "consumer");
+                name: "testing",
+                table: "tariff");
         }
     }
 }

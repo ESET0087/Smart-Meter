@@ -12,8 +12,8 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251031061538_initial")]
-    partial class initial
+    [Migration("20251104105449_data")]
+    partial class data
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,11 +160,6 @@ namespace smart_meter.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Consumerid"));
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("address");
-
                     b.Property<DateTime>("Createdat")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
@@ -200,6 +195,10 @@ namespace smart_meter.Migrations
                     b.Property<int>("Orgunitid")
                         .HasColumnType("integer")
                         .HasColumnName("orgunitid");
+
+                    b.Property<byte[]>("Password")
+                        .HasColumnType("bytea")
+                        .HasColumnName("passwordhash");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(30)
@@ -617,7 +616,7 @@ namespace smart_meter.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("email");
 
-                    b.Property<int>("FailedLoginCount")
+                    b.Property<int?>("FailedLoginCount")
                         .HasColumnType("integer")
                         .HasColumnName("failedlogincount");
 

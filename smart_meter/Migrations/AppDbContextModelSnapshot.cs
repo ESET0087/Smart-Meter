@@ -613,7 +613,7 @@ namespace smart_meter.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("email");
 
-                    b.Property<int>("FailedLoginCount")
+                    b.Property<int?>("FailedLoginCount")
                         .HasColumnType("integer")
                         .HasColumnName("failedlogincount");
 
