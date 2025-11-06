@@ -11,11 +11,13 @@ namespace smart_meter.Controllers
     {
         private readonly ConsumerService _consumerService;
         public readonly BillService _billservice;
+        public readonly RabbitMqServices _rabbitmqservice;
 
-        public ConsumerController(ConsumerService consumerService, BillService billService)
+        public ConsumerController(ConsumerService consumerService, BillService billService, RabbitMqServices rabbitmqservice)
         {
             _consumerService = consumerService;
             _billservice = billService;
+            _rabbitmqservice = rabbitmqservice;
         }
 
         // Add Consumer
@@ -64,5 +66,37 @@ namespace smart_meter.Controllers
             }
             return Ok(bills);
         }
+
+        [HttpPost("requestconnection")]
+        public async Task<IActionResult> requestconnection([FromBody] ConsumerCreateDto consumerdto)
+        {
+            var exchange = "Connection";
+            var queue = "Requestconnection";
+
+            //var message = new
+            //{
+            //    Name = consumerdto.Name,
+            //    Phone= consumerdto.Phone,
+            //    Email = consumerdto.Email,
+            //    userId = consumerdto.userid,
+            //    Address = consumerdto.Address,
+            //    OrgUnit = consumerdto.Orgunitid,
+            //    TarrifId = consumerdto.Tariffid
+
+            //};
+            var sent = await _rabbitmqservice.sendMesageDirectExchange(exchange, queue,"requestconnection", consumerdto);
+            
+            return Ok(sent);
+        }
+
+        //[HttpPost("getrequestconnection")]
+        //public async Task<IActionResult> getrequestconnection()
+        //{
+
+        //    var exchange = "Connection";
+        //    var queue = "Requestconnection";
+
+        //    var channel = _rabbitmqservice._connectionFactory()
+        //}
     }
 }

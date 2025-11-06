@@ -44,7 +44,9 @@ namespace smart_meter.Services
             {
                 Username = request.Username,
                 Passwordhash = Encoding.UTF8.GetBytes(passwordHash),
-                Displayname = request.DisplayName
+                Displayname = request.DisplayName,
+                Email = request.Email,
+                Phone = request.Phone
             };
 
             _context.User.Add(newUser);

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace smart_meter.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationName : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,8 +60,11 @@ namespace smart_meter.Migrations
                     displayname = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
                     email = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     phone = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
-                    lastloginutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    isactive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true)
+                    lastloginutc = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    isactive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    failedlogincount = table.Column<int>(type: "integer", nullable: false),
+                    lastfailedloginutc = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    lockoutendutc = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,9 +85,9 @@ namespace smart_meter.Migrations
                     orgunitid = table.Column<int>(type: "integer", nullable: false),
                     tariffid = table.Column<int>(type: "integer", nullable: false),
                     status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValueSql: "'Active'::character varying"),
-                    createdat = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()"),
+                    createdat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     createdby = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValueSql: "'system'::character varying"),
-                    updatedat = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    updatedat = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updatedby = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     isdeleted = table.Column<bool>(type: "boolean", nullable: true, defaultValue: false)
                 },
@@ -181,7 +184,7 @@ namespace smart_meter.Migrations
                     manufacturer = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     firmware = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     category = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    installtsutc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    installtsutc = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValueSql: "'Active'::character varying"),
                     consumerid = table.Column<long>(type: "bigint", nullable: true)
                 },
@@ -238,11 +241,11 @@ namespace smart_meter.Migrations
                     baseamount = table.Column<decimal>(type: "numeric(18,4)", precision: 18, scale: 4, nullable: false),
                     taxamount = table.Column<decimal>(type: "numeric(18,4)", precision: 18, scale: 4, nullable: false),
                     totalamount = table.Column<decimal>(type: "numeric(18,4)", precision: 18, scale: 4, nullable: true, computedColumnSql: "(baseamount + taxamount)", stored: true),
-                    generatedat = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "now()"),
+                    generatedat = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValueSql: "now()"),
                     paymentdate = table.Column<DateOnly>(type: "date", nullable: true, defaultValueSql: "CURRENT_DATE"),
                     duedate = table.Column<DateOnly>(type: "date", nullable: false),
                     ispaid = table.Column<bool>(type: "boolean", nullable: true, defaultValue: false),
-                    discdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    discdate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -266,7 +269,7 @@ namespace smart_meter.Migrations
                     readingid = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     meterserialno = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    readingdatetime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    readingdatetime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     energyconsumed = table.Column<decimal>(type: "numeric(10,3)", precision: 10, scale: 3, nullable: false),
                     voltage = table.Column<decimal>(type: "numeric(7,2)", precision: 7, scale: 2, nullable: false),
                     current = table.Column<decimal>(type: "numeric(7,3)", precision: 7, scale: 3, nullable: false)

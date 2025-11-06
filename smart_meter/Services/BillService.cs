@@ -29,7 +29,6 @@ namespace smart_meter.Services
             {
                 var oneMonthAgo = DateTime.UtcNow.AddMonths(-1);
 
-                // 1️⃣ Fetch all readings for this meter (past month)
                 var meterReadings = await _context.Meterreadings
                     .Where(m => m.Meterserialno == meterserialno && m.Readingdatetime > oneMonthAgo)
                     .OrderBy(m => m.Readingdatetime)
@@ -38,7 +37,6 @@ namespace smart_meter.Services
                 if (meterReadings.Count < 2)
                     return null; // Not enough data
 
-                // 2️⃣ Fetch tariff rules
                 var tariffid = await _context.Meters
                     .Where(m => m.Meterserialno == meterserialno)
                     .Select(x => new  { 
@@ -59,11 +57,9 @@ namespace smart_meter.Services
                     .OrderBy(s => s.Fromkwh)
                     .ToListAsync();
 
-                // 3️⃣ Initialize totals
                 decimal totalEnergy = 0;
                 decimal totalPrice = 0; 
 
-                // 4️⃣ Calculate energy for each 30-min interval
                 for (int i = 1; i < meterReadings.Count; i++)
                 {
                     var prev = meterReadings[i - 1];
@@ -74,7 +70,6 @@ namespace smart_meter.Services
 
                     var time = curr.Readingdatetime.TimeOfDay;
 
-                    // 5️⃣ Find which TOD rule this interval belongs to
                     var matchingRule = todRules.FirstOrDefault(rule =>
                         (rule.Starttime < rule.Endtime &&
                             time >= rule.Starttime.ToTimeSpan() && time < rule.Endtime.ToTimeSpan()) ||
@@ -88,7 +83,6 @@ namespace smart_meter.Services
                         totalPrice += intervalEnergy * tariff.Baserate;
                     }
 
-                    // 6️⃣ Apply rate
                     if (matchingRule != null)
                     {
                         totalEnergy += intervalEnergy;
@@ -113,7 +107,6 @@ namespace smart_meter.Services
                 Console.WriteLine("Total Energy : " + totalEnergy);
                 Console.WriteLine("Total Price : " + (double)totalPrice);
 
-                // 7️⃣ Return bill
                 var newbill =  new Bill
                 {
                     Generatedat = DateTime.UtcNow,

@@ -12,8 +12,8 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251030050418_AddLoginTrackingFieldsToUser")]
-    partial class AddLoginTrackingFieldsToUser
+    [Migration("20251103090002_testingrem")]
+    partial class testingrem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,7 @@ namespace smart_meter.Migrations
                         .HasColumnName("consumerid");
 
                     b.Property<DateTime?>("Discdate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("discdate");
 
                     b.Property<DateOnly>("Duedate")
@@ -102,7 +102,7 @@ namespace smart_meter.Migrations
 
                     b.Property<DateTime>("Generatedat")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("generatedat")
                         .HasDefaultValueSql("now()");
 
@@ -167,7 +167,7 @@ namespace smart_meter.Migrations
 
                     b.Property<DateTime>("Createdat")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("createdat")
                         .HasDefaultValueSql("now()");
 
@@ -223,7 +223,7 @@ namespace smart_meter.Migrations
                         .HasColumnName("tariffid");
 
                     b.Property<DateTime?>("Updatedat")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("updatedat");
 
                     b.Property<string>("Updatedby")
@@ -322,7 +322,7 @@ namespace smart_meter.Migrations
                         .HasColumnName("imsi");
 
                     b.Property<DateTime>("Installtsutc")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("installtsutc");
 
                     b.Property<string>("Ipaddress")
@@ -379,7 +379,7 @@ namespace smart_meter.Migrations
                         .HasColumnName("meterserialno");
 
                     b.Property<DateTime>("Readingdatetime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("readingdatetime");
 
                     b.Property<decimal>("Voltage")
@@ -624,15 +624,15 @@ namespace smart_meter.Migrations
                         .HasColumnName("isactive");
 
                     b.Property<DateTime?>("LastFailedLoginUtc")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("lastfailedloginutc");
 
                     b.Property<DateTime?>("Lastloginutc")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("lastloginutc");
 
                     b.Property<DateTime?>("LockoutEndUtc")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnName("lockoutendutc");
 
                     b.Property<byte[]>("Passwordhash")

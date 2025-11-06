@@ -1,0 +1,28 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace smart_meter.Migrations
+{
+    /// <inheritdoc />
+    public partial class testingrem : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "testing",
+                table: "consumer");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.AddColumn<string>(
+                name: "testing",
+                table: "consumer",
+                type: "text",
+                nullable: true);
+        }
+    }
+}

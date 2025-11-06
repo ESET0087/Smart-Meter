@@ -24,5 +24,7 @@ namespace smart_meter.Model.DTOs
        // [Required]
         public int Tariffid { get; set; }
 
+        public long ? userid    { get; set; }
+
     }
 }

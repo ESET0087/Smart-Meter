@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using smart_meter.Data.Context;
@@ -11,9 +12,11 @@ using smart_meter.Data.Context;
 namespace smart_meter.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251103085854_testing")]
+    partial class testing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,6 +230,9 @@ namespace smart_meter.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)")
                         .HasColumnName("updatedby");
+
+                    b.Property<string>("testing")
+                        .HasColumnType("text");
 
                     b.HasKey("Consumerid")
                         .HasName("consumer_pkey");

@@ -25,7 +25,10 @@ public partial class Consumer
 
     [Column("phone")]
     [StringLength(30)]
+
     public string? Phone { get; set; }
+
+
 
     [Column("email")]
     [StringLength(200)]
@@ -55,6 +58,12 @@ public partial class Consumer
     [StringLength(100)]
     public string? Updatedby { get; set; }
 
+    //[Column("consumertype")]
+    //public string ConsumerType { get; set; }
+
+    //[Column("balance")]
+    //public decimal? Balance { get; set; }
+
     [Column("isdeleted")]
     public bool? Isdeleted { get; set; }
 
@@ -78,5 +87,5 @@ public partial class Consumer
     [InverseProperty("Consumers")]
     public virtual Tariff Tariff { get; set; } = null!;
 
-
+   
 }
