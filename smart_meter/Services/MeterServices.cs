@@ -34,6 +34,22 @@ namespace smart_meter.Services
 
             return meter;
         }
+        public async Task InsertMeterData(IEnumerable<MeterReading> readingdto)
+        {
+            var reading = readingdto.Select(r => new Meterreading
+            {
+                Meterserialno = r.Meterserialno,
+                Energyconsumed = r.Energyconsumed,
+                Readingdatetime = r.Readingdatetime,
+                Voltage = r.Voltage,
+                Current = r.Current
+            }).ToList();
+            
+
+            await _context.Meterreadings.AddRangeAsync(reading);
+            await _context.SaveChangesAsync();
+            //return Task.CompletedTask;
+        }
     }
 }
 

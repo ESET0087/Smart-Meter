@@ -14,7 +14,10 @@ namespace smart_meter.Services
         {
             var connection = new ConnectionFactory
             {
-                HostName = config["RabbitMq:HostName"]
+                HostName = config["RabbitMq:HostName"],
+                UserName = config["RabbitMq:UserName"],
+                Password = config["RabbitMq:Password"],
+                VirtualHost = config["RabbitMq:VirtualHost"]
             };
             _connectionFactory = connection;
         }

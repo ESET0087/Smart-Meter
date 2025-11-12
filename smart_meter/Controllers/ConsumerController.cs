@@ -73,30 +73,11 @@ namespace smart_meter.Controllers
             var exchange = "Connection";
             var queue = "Requestconnection";
 
-            //var message = new
-            //{
-            //    Name = consumerdto.Name,
-            //    Phone= consumerdto.Phone,
-            //    Email = consumerdto.Email,
-            //    userId = consumerdto.userid,
-            //    Address = consumerdto.Address,
-            //    OrgUnit = consumerdto.Orgunitid,
-            //    TarrifId = consumerdto.Tariffid
-
-            //};
             var sent = await _rabbitmqservice.sendMesageDirectExchange(exchange, queue,"requestconnection", consumerdto);
             
             return Ok(sent);
         }
 
-        //[HttpPost("getrequestconnection")]
-        //public async Task<IActionResult> getrequestconnection()
-        //{
-
-        //    var exchange = "Connection";
-        //    var queue = "Requestconnection";
-
-        //    var channel = _rabbitmqservice._connectionFactory()
-        //}
+        
     }
 }
