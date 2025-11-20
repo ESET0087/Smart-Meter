@@ -6,19 +6,15 @@ using System.Text.Json;
 
 namespace smart_meter.Services
 {
-    public class EnergyMeasurementServices
+    public class MeterReadingServices
     {
         public readonly AppDbContext _context;
-
-        public EnergyMeasurementServices(AppDbContext context)
+        public MeterReadingServices(AppDbContext context)
         {
             _context = context;
         }
-
-        // Method to insert a new meter reading
         public async Task<Meterreading> AddMeterReadingAsync(MeterReading dto)
         {
-            // Create new entity from DTO
             var meterReading = new Meterreading
             {
                 Meterserialno = dto.Meterserialno,
@@ -27,13 +23,8 @@ namespace smart_meter.Services
                 Voltage = dto.Voltage,
                 Current = dto.Current
             };
-
-            // Add entity to DB context
             _context.Meterreadings.Add(meterReading);
-
-            // Save changes asynchronously
             await _context.SaveChangesAsync();
-
             return meterReading;
         }
 

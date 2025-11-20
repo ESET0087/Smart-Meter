@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RabbitMQ.Client;
 using smart_meter.Data.Context;
 using smart_meter.Services;
+using smart_meter.Worker;
 using System.Text;
 
 namespace smart_meter
@@ -34,9 +37,9 @@ namespace smart_meter
             builder.Services.AddScoped<MeterService>();
             builder.Services.AddScoped<HistoricalConsumptionService>();
             builder.Services.AddScoped<UserServices>();
-            builder.Services.AddScoped<EnergyMeasurementServices>();
-            builder.Services.AddScoped<TariffService>();
+            builder.Services.AddScoped<MeterReadingServices>();
             builder.Services.AddScoped<BillService>();
+            builder.Services.AddScoped<DatabaseService>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -56,6 +59,20 @@ namespace smart_meter
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]!))
                 };
             });
+
+            // Add RabbitMQ Connection
+            builder.Services.AddSingleton(sp =>
+            {
+                var factory = new ConnectionFactory()
+                {
+                    Uri = new Uri(config["RabbitMq:Connection"])
+                };
+                return factory.CreateConnectionAsync();
+            });
+
+            // Add the new BackgroundService
+            // This will start the listener
+            builder.Services.AddHostedService<ReadingListenerService>();
 
             var app = builder.Build();
 
